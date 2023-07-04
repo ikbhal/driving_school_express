@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Build
+dist/
+
+# Dependencies
+.pnp
+.pnp.js
+
+# OS generated files
+.DS_Store
+Thumbs.db
+skool.db
