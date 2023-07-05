@@ -1,19 +1,8 @@
+const { db } = require('./db.js');
 
-
-// const sqlite3 = require('sqlite3').verbose();
-
-// let db = new sqlite3.Database('skool.db', (err) => {
-//     if (err) {
-//         return console.error(err.message);
-//     }
-//     console.log('Connected to the SQLite database.');
-// });
-
-const {db} = require('./db.js');
-
-function createTables() {
-    // tod can we wait to complete one by one  and then return 
-    db.run(`CREATE TABLE IF NOT EXISTS students (
+async function createTables() {
+  try {
+    await runQuery(`CREATE TABLE IF NOT EXISTS students (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         mobileNumber TEXT,
@@ -25,51 +14,48 @@ function createTables() {
         settleAmount NUMERIC,
         course TEXT,
         trainingDays INTEGER
-    )`, (err) => {
-        if (err) {
-            return console.log(err.message);
-        }
-    });
+    );`);
 
-    // Create the driving_school table
-    db.run(`CREATE TABLE IF NOT EXISTS classes (
+    await runQuery(`CREATE TABLE IF NOT EXISTS classes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         student_id INTEGER,
         trainer_id INTEGER,
         date DATE,
         time_start TEXT,
         time_end TEXT
-    )`, (err) => {
-        if (err) {
-            return console.log(err.message);
-        }
-    });
+    );`);
 
+    // Add more create table queries here if needed
+
+    console.log('Tables created successfully');
+  } catch (err) {
+    console.error('Error creating tables:', err.message);
+  }
 }
 
-function dropTables() {
-    // TODO run drop table one by one and then return
-    db.run('drop table students', (err) => {
-        if (err) {
-            console.log("error in droping table err: ", err.message)
-        } else {
-            console.log("successfully droped table");
-        }
-    });
-    db.run('drop table classes', (err) => {
-        if (err) {
-            console.log("error in droping table err: ", err.message)
-        } else {
-            console.log("successfully droped table");
-        }
-    });
+async function dropTables() {
+  try {
+    await runQuery(`DROP TABLE IF EXISTS students;`);
+    await runQuery(`DROP TABLE IF EXISTS classes;`);
 
-    db.run('drop table trainers', (err) => {
-        if (err) {
-            console.log("error in droping table err: ", err.message)
-        } else {
-            console.log("successfully droped table");
-        }
-    });
+    // Add more drop table queries here if needed
+
+    console.log('Tables dropped successfully');
+  } catch (err) {
+    console.error('Error dropping tables:', err.message);
+  }
 }
+
+function runQuery(query) {
+  return new Promise((resolve, reject) => {
+    db.run(query, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
 module.exports = { createTables, dropTables };
