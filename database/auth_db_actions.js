@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('skool.db');
+const db = new sqlite3.Database('../skool.db');
 
 
 // TODO owner email , password to school email, school password
@@ -34,6 +34,7 @@ function createSchoolTable() {
     });
 }
 
+
 function createSchool(school,
     callback){
     const {name, address, school_mobile_number, 
@@ -54,10 +55,12 @@ function createSchool(school,
         function (err) {
             if (err) {
                 console.error(err.message);
-                callback(err);
+                callback(err, null);
+            }else {
+                const insertedId = this.lastID;
+                console.log('Inserted row ID:', insertedId);
+                getSchoolById(insertedId, callback);
             }
-
-            callback(null);
         }
     );
 }
@@ -68,7 +71,7 @@ function getSchoolById(id, callback) {
         if (err) {
             console.log(err.message);
             // send error response
-            return callback(err);
+            return callback(err, null);
         }
         // send json resposne with row
         callback(null, row);

@@ -15,7 +15,7 @@ router.post('/api/register', (req, res) => {
             console.log("error in register: ", err);
             res.status(500).json({status: 'fail', err: err});
         }   else {
-            res.json({status: 'success', err: null});
+            res.json({status: 'success', message: 'school registered successfully'});
         }
     });
 });
