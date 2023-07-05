@@ -10,6 +10,9 @@ app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+const classRoutes = require('./routes/class_routes.js');
+app.use( classRoutes);
+
 
 //testing, remove after testing
 app.get('/testbase', (req, res) => {
@@ -22,15 +25,6 @@ let db = new sqlite3.Database('skool.db', (err) => {
   }
   console.log('Connected to the SQLite database.');
 });
-
-// use to drop the table
-// db.run('drop table students', (err) => {
-//   if(err){
-//     console.log("error in droping table err: ", err.message)
-//   }else{
-//     console.log("successfully droped table");
-//   }
-// });
 
 
 db.run(`CREATE TABLE IF NOT EXISTS students (
@@ -51,7 +45,28 @@ db.run(`CREATE TABLE IF NOT EXISTS students (
   }
 });
 
+// Create the driving_school table
+db.run(`CREATE TABLE IF NOT EXISTS classes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  student_id INTEGER,
+  trainer_id INTEGER,
+  date DATE,
+  time_start TEXT,
+  time_end TEXT
+)`, (err) => {
+  if (err) {
+    return console.log(err.message);
+  }
+});
 
+// use to drop the table
+// db.run('drop table students', (err) => {
+//   if(err){
+//     console.log("error in droping table err: ", err.message)
+//   }else{
+//     console.log("successfully droped table");
+//   }
+// });
 
 app.get('/add', (req, res) => {
     // res.sendFile(__dirname + '/views/add.html');

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Class List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="/add">Add</a>
+          <a class="nav-item nav-link" href="/students">List</a>
+          <a class="nav-item nav-link" href="/search">Search</a>
+        </div>
+      </nav>
+    <div class="container mt-5">
+        <h1>Class List</h1>
+        <ul class="list-group">
+            <% classes.forEach(function(cls) { %>
+                <li class="list-group-item">
+                    <strong>Class ID: <%= cls.id %> </strong> <br>
+                     <!-- todo show student name , mobile number ; view student bhy id-->
+                    <strong>Student ID:</strong> <%= cls.student_id %><br>
+                    <!-- todo show trainer  name , mobile number lview trainer by id-->
+                    <strong>Trainer ID:</strong> <%= cls.trainer_id %><br>
+                    <strong>Date:</strong> <%= cls.date %><br>
+                    <strong>Start Time:</strong> <%= cls.time_start %><br>
+                    <strong>End Time:</strong> <%= cls.time_end %><br>
+                    <button class="btn btn-danger delete-btn" data-class-id="<%= cls.id %>">Delete</button>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.delete-btn').click(function() {
+                var classId = $(this).data('class-id');
+                if (confirm("Are you sure you want to delete this class?")) {
+                    $.ajax({
+                        url: '/api/classes/' + classId,
+                        type: 'DELETE',
+                        dataType: 'json',
+                        success: function(response) {
+                            // Refresh the page on success
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                            alert('An error occurred while deleting this class. error:', error);
+                            // Handle error if needed
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

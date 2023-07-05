@@ -19,11 +19,18 @@
   </nav>
 
   <div class="container mt-4">
-    <h1>Student View</h1>
+    <h1>Student View2</h1>
     <table class="table table-bordered mt-3">
       <tbody>
         <tr>
-          <th class="first-column">Name</th>
+          <th>Classes</th>
+          <td>
+            <a class="btn btn-warning" href="/classes/list/<%= student.id %>">Class List</a>
+            <a class="btn btn-warning" href="/classes/add/<%= student.id %>">Add Class</a>
+          </td>
+        </tr>
+        <tr>
+          <th class="first-column">Name2</th>
           <td><%= student.name %></td>
         </tr>
         <tr>
