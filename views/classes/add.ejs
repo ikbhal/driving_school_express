@@ -68,14 +68,27 @@
     <div class="container mt-5">
         <h1>Add Class</h1>
         <form>
+            <!-- <div class="mb-3">
+                <label for="student_id" class="form-label">Student ID:</label>
+                <input type="text" class="form-control" id="student_id" name="student_id" value="studentId">
+            </div> -->
+
             <div class="mb-3">
                 <label for="student_id" class="form-label">Student ID:</label>
-                <input type="text" class="form-control" id="student_id" name="student_id">
+                <input type="text" class="form-control" id="student_id" name="student_id" value="<%= studentId %>" disabled>
             </div>
-            <div class="mb-3">
+            
+            <!-- <div class="mb-3">
                 <label for="trainer_id" class="form-label">Trainer ID:</label>
                 <input type="text" class="form-control" id="trainer_id" name="trainer_id">
-            </div>
+            </div> -->
+
+            <div class="mb-3">
+                <label for="trainer_id" class="form-label">Trainer ID:</label>
+                <input type="text" class="form-control" id="trainer_id" name="trainer_id"
+                value="<%= trainerId %>" disabled
+                >
+            </div
             <div class="mb-3">
                 <label for="date" class="form-label">Date:</label>
                 <input type="date" class="form-control" id="date" name="date">

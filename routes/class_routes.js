@@ -10,7 +10,12 @@ console.log("add class ", addClass);
 
 // add as driving class
 router.get('/classes/add/:studentId', (req, res) => {
-    res.render('classes/add', { studentId: req.params.studentId });
+    res.render('classes/add', 
+        { studentId: req.params.studentId ,
+            // TODO temporary for now , later, we allow manager,owner to select trainer
+            trainerId : '1'
+        }
+    );
 });
 
 // create route for handling add driving class form 
