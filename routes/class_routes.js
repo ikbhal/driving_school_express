@@ -5,11 +5,14 @@ const sqlite3 = require('sqlite3').verbose();
 // const db = new sqlite3.Database('skool.db');
 // import db, addClass, listClasses, deleteClassById from db.js
 const {db, addClass, listClasses, deleteClassById} = require('../db.js');
+
 console.log('db in class_routes.js', db);
 console.log("add class ", addClass);
 
 // add as driving class
 router.get('/classes/add/:studentId', (req, res) => {
+    console.log("inside add class route studentId: ", studentId);
+    // const {listTrainers} = require('../database/trainer_db_action?s.js');
     res.render('classes/add', 
         { studentId: req.params.studentId ,
             // TODO temporary for now , later, we allow manager,owner to select trainer
