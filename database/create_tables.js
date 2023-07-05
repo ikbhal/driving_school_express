@@ -1,5 +1,7 @@
 const { db } = require('./db.js');
 
+// TODO testing pending
+// TODO add school table, creaet, drop
 async function createTables() {
   try {
     await runQuery(`CREATE TABLE IF NOT EXISTS students (
