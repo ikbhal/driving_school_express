@@ -1,13 +1,15 @@
 
 
-const sqlite3 = require('sqlite3').verbose();
+// const sqlite3 = require('sqlite3').verbose();
 
-let db = new sqlite3.Database('skool.db', (err) => {
-    if (err) {
-        return console.error(err.message);
-    }
-    console.log('Connected to the SQLite database.');
-});
+// let db = new sqlite3.Database('skool.db', (err) => {
+//     if (err) {
+//         return console.error(err.message);
+//     }
+//     console.log('Connected to the SQLite database.');
+// });
+
+const {db} = require('./db.js');
 
 function createTables() {
     // tod can we wait to complete one by one  and then return 

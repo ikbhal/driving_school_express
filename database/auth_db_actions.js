@@ -1,6 +1,8 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('../skool.db');
+// const sqlite3 = require('sqlite3').verbose();
 
+// const db = new sqlite3.Database('skool.db');
+
+const {db} = require('./db.js');
 
 // TODO owner email , password to school email, school password
 // TODO later segrate employee of school

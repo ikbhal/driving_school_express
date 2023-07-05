@@ -1,6 +1,8 @@
 
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('skool.db');
+// const sqlite3 = require('sqlite3').verbose();
+// const db = new sqlite3.Database('skool.db');
+
+const {db} = require('./db.js');
 
 //create function to get student by id
 function getStudentById(id, callback) {

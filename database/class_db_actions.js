@@ -1,7 +1,8 @@
 const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
+// const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite3.Database('skool.db');
+// const db = new sqlite3.Database('skool.db');
+const {db} = require('./db.js');
 
 function createClassTable(callback) {
     db.run(`CREATE TABLE IF NOT EXISTS classes (
