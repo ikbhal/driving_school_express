@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Trainer</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <%- include('_navigation') %>
+
+  <div class="container">
+    <h1>Add Trainer</h1>
+
+    <form id="addTrainerForm">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="mobile_number" class="form-label">Mobile Number</label>
+        <input type="text" class="form-control" id="mobile_number" name="mobile_number" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add Trainer</button>
+    </form>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // Handle form submission
+      $('#addTrainerForm').submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        var formData = {
+          name: $('#name').val(),
+          mobile_number: $('#mobile_number').val()
+        };
+
+        // AJAX request to submit the form data
+        $.ajax({
+          type: 'POST',
+          url: '/api/trainers',
+          data: JSON.stringify(formData),
+          contentType: 'application/json',
+          success: function(response) {
+            // On success, redirect to the trainers list page
+            window.location.href = '/trainers/list';
+          },
+          error: function(error) {
+            console.error(error);
+          }
+        });
+      });
+    });
+  </script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

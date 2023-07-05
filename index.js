@@ -10,9 +10,16 @@ app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// class routes
 const classRoutes = require('./routes/class_routes.js');
 app.use( classRoutes);
 
+// trainer routes
+const trainerRoutes = require('./routes/trainer_routes.js');
+app.use( trainerRoutes);
+
+const {createTrainerTable} = require('./database/trainer_db_actions.js');
+createTrainerTable();
 
 //testing, remove after testing
 app.get('/testbase', (req, res) => {

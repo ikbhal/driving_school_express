@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trainer List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <%- include('_navigation') %>
+
+  <div class="container">
+    <h1>Trainer List</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Mobile Number</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% trainers.forEach(function(trainer) { %>
+        <tr>
+          <td><%= trainer.name %></td>
+          <td><%= trainer.mobile_number %></td>
+          <td>
+            <button class="btn btn-danger delete-trainer" data-trainer-id="<%= trainer._id %>">Delete</button>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // Handle delete button click
+      $('.delete-trainer').click(function() {
+        var trainerId = $(this).data('trainer-id');
+        var confirmation = confirm('Are you sure you want to delete this trainer?');
+        
+        if (confirmation) {
+          // AJAX request to delete the trainer
+          $.ajax({
+            type: 'DELETE',
+            url: '/api/trainers/' + trainerId,
+            success: function(response) {
+              // On success, refresh the page
+              location.reload();
+            },
+            error: function(error) {
+              console.error(error);
+            }
+          });
+        }
+      });
+    });
+  </script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
