@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
-const {addTrainer, listTrainers, deleteTrainerById} 
+const {addTrainer, listTrainers, deleteTrainerById
+    , getTrainerById} 
     = require('../database/trainer_db_actions.js');
 
 // add trainer route render views/trainers/add.ejs
@@ -63,6 +64,19 @@ router.delete('/api/trainers/:id', (req, res) => {
             res.status(500).send('Internal Server Error');
         } else {
             res.json({success: true, message: 'Trainer deleted successfully'})
+        }
+    });
+});
+
+// get trainer by id  api route, accept trainer id, return trainer in json 
+router.get('/api/trainers/:id', (req, res) => {
+    const { id } = req.params;
+    getTrainerById(id, (err, trainer) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.json(trainer);
         }
     });
 });

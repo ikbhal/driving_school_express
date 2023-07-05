@@ -152,4 +152,17 @@ router.put('/api/students/:id', (req, res) => {
 
 });
 
+// get students by id api , return student in json
+router.get('/api/students/:id', (req, res) => {
+    getStudentById(req.params.id, (err, row) => {
+        if (err) {
+            //return error response
+            res.status(500).json({ error: 'Failed to search for students.' });
+        } else {
+            //return all students in json 
+            res.json(row);
+        }
+    });
+});
+
 module.exports = router;

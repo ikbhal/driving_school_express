@@ -65,7 +65,20 @@ function deleteTrainerById(trainerId, callback) {
     });
 }
 
+function getTrainerById(trainerId, callback) {
+    const query = 'SELECT * FROM trainers WHERE id = ?';
+    db.get(query, [trainerId], (err, row) => {
+        if (err) {
+            console.error("error fetching trainer by id:"
+                + trainerId + " is err:" + err);
+            callback(err, null);
+        } else {
+            callback(null, row);
+        }
+    });
+}
+
 module.exports = { db, createTrainerTable, 
     listTrainers, addTrainer,
-    deleteTrainerById
+    deleteTrainerById, getTrainerById
 };

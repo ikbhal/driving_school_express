@@ -9,67 +9,43 @@
 
 <body>
     <%- include('../_navigation') %>
-
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/add">Add</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/students">List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/search">Search</a>
-                </li>
-            </ul>
-        </div>
-    </nav> -->
-
     <div class="container mt-5">
         <h1>Class List</h1>
         <ul class="list-group">
             <% classes.forEach(function(cls) { %>
-                <li class="list-group-item">
-                    <strong>Class ID: <%= cls.id %> </strong> <br>
-                    <!-- todo show student name , mobile number ; view student bhy id-->
-                    <strong>Student ID:</strong>
-                    <%= cls.student_id %><br>
-                        <!-- todo show trainer  name , mobile number lview trainer by id-->
-                        <strong>Trainer ID:</strong>
-                        <%= cls.trainer_id %><br>
-                            <strong>Date:</strong>
-                            <%= cls.date %><br>
-                                <strong>Start Time:</strong>
-                                <%= cls.time_start %><br>
-                                    <strong>End Time:</strong>
-                                    <%= cls.time_end %><br>
-                                        <button class="btn btn-danger delete-btn"
-                                            data-class-id="<%= cls.id %>">Delete</button>
-                </li>
-                <% }); %>
+            <li class="list-group-item">
+                <strong>Class ID: <%= cls.id %> </strong> <br>
+                <strong>Student ID:</strong>
+                <span id="studentName_<%= cls.id %>"></span><br>
+                <strong>Trainer ID:</strong>
+                <span id="trainerName_<%= cls.id %>"></span><br>
+                <strong>Date:</strong>
+                <%= cls.date %><br>
+                <strong>Start Time:</strong>
+                <%= cls.time_start %><br>
+                <strong>End Time:</strong>
+                <%= cls.time_end %><br>
+                <button class="btn btn-danger delete-btn" data-class-id="<%= cls.id %>">Delete</button>
+            </li>
+            <% }); %>
         </ul>
     </div>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('.delete-btn').click(function () {
+        $(document).ready(function() {
+            $('.delete-btn').click(function() {
                 var classId = $(this).data('class-id');
                 if (confirm("Are you sure you want to delete this class?")) {
                     $.ajax({
                         url: '/api/classes/' + classId,
                         type: 'DELETE',
                         dataType: 'json',
-                        success: function (response) {
+                        success: function(response) {
                             // Refresh the page on success
                             location.reload();
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.error(error);
                             alert('An error occurred while deleting this class. error:', error);
                             // Handle error if needed
@@ -77,6 +53,36 @@
                     });
                 }
             });
+
+            // Fetch student name for each class
+            <% classes.forEach(function(cls) { %>
+            $.ajax({
+                url: '/api/students/<%= cls.student_id %>',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    $('#studentName_<%= cls.id %>').text(response.name);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+            <% }); %>
+
+            // Fetch trainer name for each class
+            <% classes.forEach(function(cls) { %>
+            $.ajax({
+                url: '/api/trainers/<%= cls.trainer_id %>',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    $('#trainerName_<%= cls.id %>').text(response.name);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+            <% }); %>
         });
     </script>
 </body>
