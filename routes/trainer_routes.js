@@ -29,9 +29,11 @@ router.post('/api/trainers', (req, res) => {
 // list trainer api route, reeturn list of trainers in json 
     //format via listTrainers
 router.get('/api/trainers', (req, res) => {
+    console.log("inside api trainers llist");
     listTrainers((err, rows) => {
+        console.log("inside list trainers callback  ");
         if (err) {
-            console.error(err);
+            console.error("trainers api:  unable to retrieve trainers : err:", err);
             res.status(500).send('Internal Server Error');
         } else {
             console.log("rows: ", rows);

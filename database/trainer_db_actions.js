@@ -2,6 +2,7 @@ const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database('../skool.db');
+console.log("trainer db actions db: ", db)
 
 function createTrainerTable(callback) {
     db.run(`CREATE TABLE IF NOT EXISTS trainers (
@@ -21,12 +22,16 @@ function createTrainerTable(callback) {
 
 // write function to list clasess 
 function listTrainers(callback) {
+    console.log("inside list trainers function");
     const query = 'SELECT * FROM trainers';
     db.all(query, [], (err, rows) => {
+        console.log(" list trainers: rows: ", rows);
+        console.log(" list trainers: err: ", err);
         if (err) {
-            console.error(err);
+            console.error(" unable to retrieve trainers, error : ", err);
             callback(err, null);
         } else {
+            console.log('list trainers: able to retrieve trainer wihtout error');
             callback(null, rows);
         }
     });
