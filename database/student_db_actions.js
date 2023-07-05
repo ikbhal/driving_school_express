@@ -30,7 +30,8 @@ function getAllStudents(callback) {
 // create student from name, mobileNumber, joiningDate, applicationNumber, amount, discount, amountPaid, settleAmount, course, trainingDays
 function createStudent(name, mobileNumber, joiningDate,
     applicationNumber, amount, discount, amountPaid,
-    settleAmount, course, trainingDays) {
+    settleAmount, course, trainingDays
+    ,callback) {
     const sql = 'INSERT INTO students (name, mobileNumber, joiningDate, applicationNumber, amount, discount, amountPaid, settleAmount, course, trainingDays) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     db.run(sql,
         [name, mobileNumber, joiningDate, applicationNumber,

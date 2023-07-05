@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <%- include('../_navigation') %>
+
+    <div class="container mt-5">
+        <h1>Add Student</h1>
+        <form id="addStudentForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="mobileNumber">Mobile Number:</label>
+                <input type="text" class="form-control" id="mobileNumber" name="mobileNumber">
+            </div>
+            <div class="form-group">
+                <label for="joiningDate">Joining Date:</label>
+                <input type="date" class="form-control" id="joiningDate" name="joiningDate">
+            </div>
+            <div class="form-group">
+                <label for="applicationNumber">Application Number:</label>
+                <input type="text" class="form-control" id="applicationNumber" name="applicationNumber">
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="text" class="form-control" id="amount" name="amount">
+            </div>
+            <div class="form-group">
+                <label for="discount">Discount:</label>
+                <input type="text" class="form-control" id="discount" name="discount">
+            </div>
+            <div class="form-group">
+                <label for="amountPaid">Amount Paid:</label>
+                <input type="text" class="form-control" id="amountPaid" name="amountPaid">
+            </div>
+            <div class="form-group">
+                <label for="settleAmount">Settle Amount:</label>
+                <input type="text" class="form-control" id="settleAmount" name="settleAmount">
+            </div>
+            <div class="form-group">
+                <label for="course">Course:</label>
+                <input type="text" class="form-control" id="course" name="course">
+            </div>
+            <div class="form-group">
+                <label for="trainingDays">Training Days:</label>
+                <input type="text" class="form-control" id="trainingDays" name="trainingDays">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#addStudentForm').submit(function(event) {
+                event.preventDefault();
+
+                var studentData = {
+                    name: $('#name').val(),
+                    mobileNumber: $('#mobileNumber').val(),
+                    joiningDate: $('#joiningDate').val(),
+                    applicationNumber: $('#applicationNumber').val(),
+                    amount: $('#amount').val(),
+                    discount: $('#discount').val(),
+                    amountPaid: $('#amountPaid').val(),
+                    settleAmount: $('#settleAmount').val(),
+                    course: $('#course').val(),
+                    trainingDays: $('#trainingDays').val()
+                };
+
+                $.ajax({
+                    url: '/api/students',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(studentData),
+                    success: function(response) {
+                        window.location.href = '/students';
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

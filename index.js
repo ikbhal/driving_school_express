@@ -22,17 +22,11 @@ app.use(classRoutes);
 const trainerRoutes = require('./routes/trainer_routes.js');
 app.use(trainerRoutes);
 
-const { createTrainerTable } = require('./database/trainer_db_actions.js');
-createTrainerTable((err) => {
-  if (err) {
-    console.log("error in creating table trainers errr:", err)
-  } else {
-    console.log('succesfully created table trainers');
-  }
-});
+// const { createTrainerTable } = require('./database/trainer_db_actions.js');
 
 app.get('/', (req, res) => {
-  res.render('/students/list');
+  // res.render('students/list');
+  res.redirect('/students');
 });
 
 // Start the server

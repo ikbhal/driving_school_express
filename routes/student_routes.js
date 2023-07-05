@@ -12,7 +12,7 @@ router.get('/students/add', (req, res) => {
 });
 
 // generate view page for student id
-router.get('/students/:id', (req, res) => {
+router.get('/students/details/:id', (req, res) => {
     //feth student by id 
     getStudentById(req.params.id, (err, row) => {
         if (err) {
@@ -26,7 +26,6 @@ router.get('/students/:id', (req, res) => {
 
 // list student page
 router.get('/students', (req, res) => {
-
     getAllStudents((err, rows) => {
         if (err) {
             console.log("error in fetching student by id err: ", err.message);
@@ -66,8 +65,12 @@ router.post('/api/students', (req, res) => {
 });
 
 
+router.get('/students/dummy', (req, res) =>{
+    res.send("dummy studnets");
+})
 // student search page
 router.get('/students/search', (req, res) => {
+    console.log('student search page');
     res.render('students/search');
 });
 
