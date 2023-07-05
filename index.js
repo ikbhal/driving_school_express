@@ -19,12 +19,16 @@ const classRoutes = require('./routes/class_routes.js');
 app.use(classRoutes);
 
 // trainer routes
-const trainerRoutes = require('./routes/trainer_routes.js');
-app.use(trainerRoutes);
+// const trainerRoutes = require('./routes/trainer_routes.js');
+// app.use(trainerRoutes);
 
 // auth routes
 const authRoutes = require('./routes/auth_routes.js');
 app.use(authRoutes);
+
+// schools routes
+const schoolRoutes = require('./routes/school_routes.js');
+app.use(schoolRoutes);
 
 // const { createTrainerTable } = require('./database/trainer_db_actions.js');
 
