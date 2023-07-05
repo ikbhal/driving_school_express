@@ -85,11 +85,10 @@ function getSchoolByAuth(owner_email, password, callback) {
         [owner_email, password], (err, row) => {
         if (err) {
             console.log(err.message);
-            // send error response
-            return callback(err, null);
+            callback(err, null);
+        } else {
+            callback(null, row);
         }
-        // send json resposne with row
-        callback(null, row);
     });
 }
 

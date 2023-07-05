@@ -28,7 +28,8 @@ router.post('/api/login', (req, res) => {
     login(owner_email, password, (err, row) => {
         if(err){
             console.log("error in login: ", err);
-            res.status(500).json({status: 'fail', err: err});
+            // res.status(500).json({status: 'fail', err: err});
+            res.status(500);
         }else {
             // send json response with row
             res.json(row);
