@@ -19,7 +19,13 @@ const trainerRoutes = require('./routes/trainer_routes.js');
 app.use( trainerRoutes);
 
 const {createTrainerTable} = require('./database/trainer_db_actions.js');
-createTrainerTable();
+createTrainerTable( (err) => {
+  if (err) {
+    console.log("error in creating table trainers errr:", err)
+  } else{
+    console.log('succesfully created table trainers');
+  }
+});
 
 //testing, remove after testing
 app.get('/testbase', (req, res) => {
