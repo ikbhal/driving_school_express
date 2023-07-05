@@ -11,6 +11,7 @@ console.log("add class ", addClass);
 
 // add as driving class
 router.get('/classes/add/:studentId', (req, res) => {
+    var studentId = req.params.studentId;
     console.log("inside add class route studentId: ", studentId);
     // const {listTrainers} = require('../database/trainer_db_action?s.js');
     res.render('classes/add', 
