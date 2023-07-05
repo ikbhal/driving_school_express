@@ -22,6 +22,10 @@ app.use(classRoutes);
 const trainerRoutes = require('./routes/trainer_routes.js');
 app.use(trainerRoutes);
 
+// auth routes
+const authRoutes = require('./routes/auth_routes.js');
+app.use(authRoutes);
+
 // const { createTrainerTable } = require('./database/trainer_db_actions.js');
 
 app.get('/', (req, res) => {

@@ -1,0 +1,81 @@
+<!-- login.ejs -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h1>Driving School Management</h1>
+        <h2>School Login</h2>
+        <form id="loginForm" action="/api/login" method="POST">
+            <div class="form-group">
+                <label for="owner_email">Owner Email</label>
+                <input type="email" class="form-control" id="owner_email" name="owner_email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="button" class="btn btn-secondary" id="clearButton">Clear</button>
+            </div>
+            <span id="error_message" style="color: red;"></span>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#loginForm').submit(function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                var form = $(this);
+                var url = form.attr('action');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    success: function (response) {
+                        // Login successful, redirect to homepage
+                        window.location.href = '/';
+                        // Set school details in local storage
+
+                        // TODO revise school Details as per table school
+                        // TODO add missing fields 
+                        var schoolDetails = {
+                            name: response.school.name,
+                            address: response.school.address,
+                            owner: {
+                                name: response.school.owner_name,
+                                email: response.school.owner_email,
+                                mobile_number: response.school.owner_mobile_number
+                            }
+                        };
+                        localStorage.setItem('schoolDetails', JSON.stringify(schoolDetails));
+                    },
+                    error: function (xhr, status, error) {
+                        // Login failed, display error message
+                        var errorMessage = 'Login failed: ' + error;
+                        console.error(errorMessage);
+                        $('#error_message').text(errorMessage);
+                    }
+                });
+            });
+
+            $('#clearButton').click(function () {
+                // Clear form fields
+                $('#loginForm').trigger('reset');
+            });
+        });
+    </script>
+</body>
+
+</html>
