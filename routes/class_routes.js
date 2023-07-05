@@ -1,9 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
-// const db = new sqlite3.Database('skool.db');
-// import db, addClass, listClasses, deleteClassById from db.js
 const {db, addClass, listClasses, deleteClassById} = require('../db.js');
 
 console.log('db in class_routes.js', db);
@@ -57,6 +53,7 @@ router.get('/classes/list/:studentId', (req, res) => {
         } else {
             console.log("rows: ", rows);
             console.log("rendering classes list");
+            // todo if possible student: student, trainers: trainers pass
             res.render('classes/list', { classes: rows });
         }
     });

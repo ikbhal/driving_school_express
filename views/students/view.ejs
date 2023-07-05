@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student View</title>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .first-column {
+      width: 20%;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/add">Add</a>
+      <a class="nav-item nav-link" href="/students">List</a>
+      <a class="nav-item nav-link" href="/search">Search</a>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <!--  check if student parameters is null ,if so say no student found else  show thet able below -->
+    <% if(!student) { %>
+      <h1>No Student Found</h1>
+    <% } else { %>
+      <h1>Student View</h1>
+      <table class="table table-bordered mt-3">
+        <tbody>
+          <tr>
+            <th>Classes</th>
+            <td>
+              <a class="btn btn-warning" href="/classes/list/<%= student.id %>">Class List</a>
+              <a class="btn btn-warning" href="/classes/add/<%= student.id %>">Add Class</a>
+            </td>
+          </tr>
+          <tr>
+            <th class="first-column">Name2</th>
+            <td><%= student.name %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Mobile Number</th>
+            <td><%= student.mobileNumber %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Joining Date</th>
+            <td><%= student.joiningDate %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Application Number</th>
+            <td><%= student.applicationNumber %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Amount</th>
+            <td><%= student.amount %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Discount</th>
+            <td><%= student.discount %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Amount Paid</th>
+            <td><%= student.amountPaid %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Settle Amount</th>
+            <td><%= student.settleAmount %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Course</th>
+            <td><%= student.course %></td>
+          </tr>
+          <tr>
+            <th class="first-column">Training Days</th>
+            <td><%= student.trainingDays %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
