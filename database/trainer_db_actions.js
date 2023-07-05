@@ -24,6 +24,7 @@ function createTrainerTable(callback) {
 function listTrainers(callback) {
     console.log("inside list trainers function");
     const query = 'SELECT * FROM trainers';
+    console.log("db file name: db.filename: ", db.filename);
     db.all(query, [], (err, rows) => {
         console.log(" list trainers: rows: ", rows);
         console.log(" list trainers: err: ", err);
