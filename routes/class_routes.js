@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {db, addClass, listClasses, deleteClassById} = require('../db.js');
+const {db, addClass, listClasses, deleteClassById} = require('../database/student_db_actions.js');
 
 console.log('db in class_routes.js', db);
 console.log("add class ", addClass);

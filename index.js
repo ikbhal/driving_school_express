@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //student routes
-const studentRoutes = require('./routes/studentroutes.js');
+const studentRoutes = require('./routes/student_routes.js');
 app.use(studentRoutes);
 
 // class routes
