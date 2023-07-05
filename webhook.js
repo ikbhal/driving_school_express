@@ -26,7 +26,7 @@ const handleRequest = (request, response) => {
 
         gitPull.on('close', (code) => {
           if (code === 0) {
-            const pm2Restart = spawn('pm2', ['restart', 'skool']);
+            const pm2Restart = spawn('pm2', ['restart', 'driving_school_express']);
             pm2Restart.stdout.on('data', (data) => {
               console.log(`pm2 restart output: ${data}`);
             });
