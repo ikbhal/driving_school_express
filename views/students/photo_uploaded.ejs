@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <%- include('../_navigation') %>
+
+    <div class="container mt-5">
+        <h4>Student Photo Uploaded</h4>
+        <% if(typeof student !== 'undefined' && student) { %>
+            <p><%= student.name %> photo uploaded successfully</p>
+            <div>
+                <img src="/uploads/<%= student.photo %>" width="120px" height="120px">
+                <br/>
+            </div>
+            <div>
+                <!-- // create button to go back to student details 
+                http://localhost:3000/students/details/6 -->
+
+                <a href="/students/details/<%= student.id %>" 
+                    class="btn btn-primary">
+                    Back to Student Details
+                </a>
+
+            </div>
+        <% } %>
+        <% if(typeof error !== 'undefined' && error) { %>
+            <p>Error Mesesage: <%= error %></p>
+        <% } %>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

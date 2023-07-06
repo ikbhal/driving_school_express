@@ -54,10 +54,29 @@ router.post('/students/:id/upload', upload.single('photo'), (req, res) => {
     db.run(query, (err, result) => {
         if (err) {
             console.log("err:", err);
-            res.send(err);
+            res.render('students/photo_uploaded', 
+            { student: null, 
+                    error:  "update: unable to update student by id "+ id
+            });
         }   else {
             console.log("result:", result);
-            res.send("photo uploaded , student path updated  for student id: " + id)
+            // res.send("photo uploaded , student path updated  for student id: " + id)
+            // students/photo_uploaded , show student name, photo, pass student 
+            // get studente by id 
+            const query = `SELECT * FROM students WHERE id = ${id}`;
+            db.get(query, (err, result) => {
+                if (err) {
+                    console.log("err:", err);
+                    // res.send("unable to fetch student by id "+ id);
+                    res.render('students/photo_uploaded', 
+                    { student: null, 
+                            error:  "update: unable to fetch student by id "+ id
+                    });
+                } else {
+                    console.log("result:", result);
+                    res.render('students/photo_uploaded', { student: result });
+                }
+            });
         }
     });
 });
@@ -102,7 +121,10 @@ router.get('/students/:id/delete_photo', (req, res) => {
     db.get(query, (err, result) => {
         if (err) {
             console.log("err:", err);
-            res.send("unable to delete photo as student not found");
+            // res.send("unable to delete photo as student not found");
+            res.render('students/photo_deleted', 
+            { error: "unable to delete photo as student not found",
+             student:null});
         } else {
             console.log("result:", result);
             const fileName = result.photo;
@@ -118,13 +140,21 @@ router.get('/students/:id/delete_photo', (req, res) => {
                 db.run(query, (err, result) => {
                     if(err){
                         console.err("uanble to update photo to null , err:", err);
-                        res.send("unable to update student photo to null")
+                        res.render('students/photo_deleted', 
+                            { error: "unable to update student photo to null",
+                            student:null});
                     }else {
-                        res.send("photo deleted and student photo updated to null");
+                        // TODO wont get student in resul as it update, 
+                        // if you need it fetch it again 
+                        res.render('students/photo_deleted', 
+                            { error: null, student:result});
                     }
                 });
             } else {
                 console.log('Photo not found');
+                res.render('students/photo_deleted', 
+                    { error: "Photo not found", student:null}
+                );
             }
         }
     });
