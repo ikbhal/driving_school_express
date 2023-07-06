@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Photo</title>
+</head>
+<body>
+  <h1>Upload Photo</h1>
+  <% if (id) { %>
+  <h2>Student ID: <%= id %></h2>
+  <% } %>
+  <form action="/students/<%= id %>/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="photo" accept="image/*">
+    <button type="submit">Upload</button>
+  </form>
+</body>
+</html>

@@ -27,6 +27,31 @@
       <table class="table table-bordered mt-3">
         <tbody>
           <tr>
+            <th>Photo</th>
+            <td>
+              <!-- // add the photo to the uploads folder button -->
+
+              <!-- // delete the photo from the uploads folder button  -->
+              <!-- create the form to upload file -->
+              <form 
+                id ="student_upload_form"
+                action = "/students/<%= student.id %>/upload"
+                method="POST" 
+                enctype="multipart/form-data">
+
+                <input type="file" name="photo">
+                <input type="submit" value="Upload">
+              </form>
+              <br/>
+
+              <% if(student.photo) {%>
+                <img src="/uploads/<%= student.photo %>" width="120px" height="120px">
+               <% } %>
+               <br/>
+              <a href="/students/<%= student.id %>/delete_photo" class="btn btn-danger">Delete Photo</a>
+            </td>
+          </tr>
+          <tr>
             <th>Classes</th>
             <td>
               <a class="btn btn-warning" href="/classes/list/<%= student.id %>">Class List</a>
@@ -79,7 +104,6 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

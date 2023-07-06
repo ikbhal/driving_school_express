@@ -37,6 +37,9 @@ app.get('/', (req, res) => {
   res.redirect('/students');
 });
 
+const photoRoutes = require('./routes/photo_routes.js');
+app.use(photoRoutes);
+
 // Start the server
 // const port = process.env.PORT || 3000;
 const port = 3000;
