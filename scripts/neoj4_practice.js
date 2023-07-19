@@ -49,8 +49,8 @@ const createDummyClass = async (studentId, trainerId, schoolId) => {
     `
     MATCH (st:Student {id: $studentId}), (tr:Trainer {id: $trainerId}), (sc:School {id: $schoolId})
     CREATE (c:Class {id: $classId, class_date: $classDate, start_time: $startTime, end_time: $endTime})
-    CREATE (c)<-[:TAKEN_FROM]-(st)
-    CREATE (c)<-[:TAUGHT_BY]-(tr)
+    CREATE (c)-[:TAKEN_FROM]->(st)
+    CREATE (c)-[:TAUGHT_BY]->(tr)
     CREATE (c)<-[:OFFERED_BY]-(sc)
     RETURN c
     `,
