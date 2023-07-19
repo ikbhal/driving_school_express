@@ -27,14 +27,31 @@ const createDummyTrainer = async () => {
   console.log('Created dummy trainer:', result.records[0].get('t').properties);
 };
 
-// Create a class taken by the student from the trainer
-const createDummyClass = async (studentId, trainerId) => {
+// Create a dummy school and connect relationships with students and trainers
+const createDummySchool = async () => {
   const result = await session.run(
     `
-    MATCH (s:Student {id: $studentId}), (t:Trainer {id: $trainerId})
+    CREATE (s:School {id: $id, name: $name})
+    WITH s
+    MATCH (st:Student {id: $studentId}), (tr:Trainer {id: $trainerId})
+    CREATE (s)<-[:JOINED]-(st)
+    CREATE (s)<-[:WORKS_AT]-(tr)
+    RETURN s
+    `,
+    { id: 1, name: 'ABC School', studentId: 1, trainerId: 1 }
+  );
+  console.log('Created dummy school:', result.records[0].get('s').properties);
+};
+
+// Create a dummy class and connect relationships with students, trainers, and school
+const createDummyClass = async (studentId, trainerId, schoolId) => {
+  const result = await session.run(
+    `
+    MATCH (st:Student {id: $studentId}), (tr:Trainer {id: $trainerId}), (sc:School {id: $schoolId})
     CREATE (c:Class {id: $classId, class_date: $classDate, start_time: $startTime, end_time: $endTime})
-    CREATE (s)-[:TAKEN_FROM]->(c)
-    CREATE (c)-[:TAUGHT_BY]->(t)
+    CREATE (c)<-[:TAKEN_FROM]-(st)
+    CREATE (c)<-[:TAUGHT_BY]-(tr)
+    CREATE (c)<-[:OFFERED_BY]-(sc)
     RETURN c
     `,
     {
@@ -43,7 +60,8 @@ const createDummyClass = async (studentId, trainerId) => {
       startTime: '09:00',
       endTime: '11:00',
       studentId,
-      trainerId
+      trainerId,
+      schoolId
     }
   );
   console.log('Created dummy class:', result.records[0].get('c').properties);
@@ -52,7 +70,8 @@ const createDummyClass = async (studentId, trainerId) => {
 // Call the functions to create the dummy data
 createDummyStudent()
   .then(() => createDummyTrainer())
-  .then(() => createDummyClass(1, 1))
+  .then(() => createDummySchool())
+  .then(() => createDummyClass(1, 1, 1))
   .then(() => session.close())
   .then(() => driver.close())
   .catch((error) => console.error('Error:', error));
