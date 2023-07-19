@@ -22,6 +22,19 @@ function createTrainerTable(callback) {
     });
 }
 
+// delete trainer table
+function dropTrainerTable(callback) {
+    db.run(`DROP TABLE IF EXISTS trainers`, (err) => {
+        if (err) {
+            console.log(" error deleting trainers table ", err.message);
+            callback(err);
+        }else{
+            console.log("trainers table deleted");
+            callback(null);
+        }
+    });
+}
+
 // write function to list clasess 
 function listTrainers(callback) {
     console.log("inside list trainers function");
@@ -80,7 +93,10 @@ function getTrainerById(trainerId, callback) {
     });
 }
 
-module.exports = { db, createTrainerTable, 
+module.exports = { db, 
     listTrainers, addTrainer,
-    deleteTrainerById, getTrainerById
+    deleteTrainerById, getTrainerById,
+
+    dropTrainerTable,
+    createTrainerTable
 };

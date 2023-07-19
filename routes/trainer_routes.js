@@ -3,8 +3,34 @@ const router = express.Router();
 const path = require('path');
 
 const {addTrainer, listTrainers, deleteTrainerById
-    , getTrainerById} 
+    , getTrainerById, 
+    createTrainerTable,dropTrainerTable} 
     = require('../database/trainer_db_actions.js');
+
+
+// create trainers table via api
+router.get('/sql/create_trainers_table', (req,res) => {
+    createTrainerTable((err) => {
+        if(err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.send('Trainers table created successfully');
+        }
+    });
+});
+
+// drop trainers table via api
+router.get('/sql/drop_trainers_table', (req,res) => {
+    dropTrainerTable((err) => {
+        if(err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.send('Trainers table dropped successfully');
+        }
+    });
+});
 
 // add trainer route render views/trainers/add.ejs
 router.get('/trainers/add', (req, res) => {
