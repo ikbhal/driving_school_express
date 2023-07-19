@@ -1,4 +1,4 @@
-const neo4j = require('neo4j');
+const neo4j = require('neo4j-driver');
 
 // Create a Neo4j driver instance
 const driver = neo4j.driver(
