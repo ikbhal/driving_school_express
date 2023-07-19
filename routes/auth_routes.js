@@ -22,7 +22,7 @@ router.post('/api/register', (req, res) => {
 
 // API login
 router.post('/api/login', (req, res) => {
-    res.send('login api');
+    // res.send('login api');
     const {owner_email, password} = req.body;
     // login(owner_email, password, callback)
     login(owner_email, password, (err, row) => {
@@ -32,7 +32,13 @@ router.post('/api/login', (req, res) => {
             res.status(500);
         }else {
             // send json response with row
-            res.json(row);
+            // check if row is undefined, then send no schoolfound error 200 message 
+            if(row === undefined){
+                res.status(200).json({status: 'fail', message: 'No school found with this email and password'});
+            }else{
+                // lets add row to data property of response, add status as succeess, message login success
+                res.status(200).json({status: 'success', message: 'login success', data: row});
+            }
         }
     }); 
 });
